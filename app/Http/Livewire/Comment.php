@@ -28,6 +28,9 @@ class Comment extends Component
     }
 
     public function addComment(){
+        if($this->newComment == ""){
+            return ;
+        }
         //array_unshift is used to add element at first of array
         array_unshift($this->comments, [
             'body' => $this->newComment,
