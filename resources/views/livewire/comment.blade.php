@@ -4,7 +4,9 @@
       <div class="max-w-xl lg:max-w-lg">
         <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Comment</h2>
         <p class="mt-4 text-lg leading-8 text-gray-300"></p>
-        
+        @if(session()->has('message'))
+            <div class="text-white">{{ session('message')}}</div>
+        @endif
         
         @error('newComment') <span class="text-white">{{ $message}}</span>@enderror
 

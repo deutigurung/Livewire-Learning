@@ -47,10 +47,12 @@ class Comment extends Component
         $this->comments->push($data); // add new comment to collection
         //reset newComment variable
         $this->newComment = '';
+        session()->flash('message','Comment added');
     }
 
     public function delete($id){
         $this->comments = $this->comments->except($id);
         $data = Comments::find($id)->delete();
+        session()->flash('message','Comment deleted');
     }
 }
