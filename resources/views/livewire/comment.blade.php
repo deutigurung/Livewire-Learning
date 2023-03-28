@@ -30,6 +30,7 @@
           <dt class="mt-4 font-semibold text-white">{{ $comment->user->name}}</dt>
           <dd class="mt-2 leading-7 text-gray-400">{{ $comment->body}}</dd>
           <dd class="mt-2 leading-7 text-gray-400">{{ $comment->created_at->diffForHumans()}}</dd>
+          <button wire:click="$emit('removeComment',{{$comment->id}})" class="rounded-md bg-indigo-500 text-red-200 hover:text-red-600 cursor-pointer">Remove</button>
         </div>
         @endforeach
       </dl>

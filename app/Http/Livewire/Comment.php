@@ -15,6 +15,8 @@ class Comment extends Component
         'newComment' => 'required|string',
     ];
 
+    protected $listeners = ['removeComment'=>'delete'];
+
     public function render()
     {
         return view('livewire.comment');
@@ -22,7 +24,7 @@ class Comment extends Component
 
     //mount() is used to initialize variable
     public function mount(){
-        $initialComments = Comments::latest()->get();
+        $initialComments = Comments::latest()->take(5)->get();
         $this->comments = $initialComments;
     }
 
@@ -45,5 +47,10 @@ class Comment extends Component
         $this->comments->push($data); // add new comment to collection
         //reset newComment variable
         $this->newComment = '';
+    }
+
+    public function delete($id){
+        $this->comments = $this->comments->except($id);
+        $data = Comments::find($id)->delete();
     }
 }
