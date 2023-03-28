@@ -19,7 +19,7 @@ class Comment extends Component
 
     //mount() is used to initialize variable
     public function mount(){
-        $initialComments = Comments::get();
+        $initialComments = Comments::latest()->get();
         $this->comments = $initialComments;
     }
 
@@ -27,12 +27,11 @@ class Comment extends Component
         if($this->newComment == ""){
             return ;
         }
-        //array_unshift is used to add element at first of array
-        array_unshift($this->comments, [
+        $data = Comments::create([
             'body' => $this->newComment,
-            'created_at' => Carbon::now()->diffForHumans(),
-            'created_by' => 'User'
+            'user_id' => 1
         ]);
+        $this->comments->push($data); // add new comment to collection
         //reset newComment variable
         $this->newComment = '';
     }
