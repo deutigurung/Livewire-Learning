@@ -7,9 +7,11 @@
         <form class="my-4 flex" wire:submit.prevent="addComment"> 
           <div class="mt-6 flex max-w-md gap-x-4">
           <label for="comment" class="sr-only"></label>
-          <!-- wire:model="newComment" is used to bind input value to newComment variable 
-          wire:model.debounce.500ms is used to bind input value after 500ms delay
-          wire.model.lazy is used to bind input value after user leaves the input field -->
+          <!--
+             wire:model="newComment" is used to bind input value to newComment variable 
+             wire:model.debounce.500ms is used to bind input value after 500ms delay
+             wire.model.lazy is used to bind input value after user leaves the input field 
+            -->
           <input id="comment" name="comment" type="text" wire:model.lazy="newComment" autocomplete="comment" 
            class="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" placeholder="Enter your comment">
           <button type="submit" class="flex-none rounded-md bg-indigo-500 py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Add</button>
@@ -20,9 +22,9 @@
       <dl class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
         @foreach($comments as $comment)
         <div class="flex flex-col items-start">
-          <dt class="mt-4 font-semibold text-white">{{ $comment['created_by']}}</dt>
-          <dd class="mt-2 leading-7 text-gray-400">{{ $comment['body']}}</dd>
-          <dd class="mt-2 leading-7 text-gray-400">{{ $comment['created_at']}}</dd>
+          <dt class="mt-4 font-semibold text-white">{{ $comment->user->name}}</dt>
+          <dd class="mt-2 leading-7 text-gray-400">{{ $comment->body}}</dd>
+          <dd class="mt-2 leading-7 text-gray-400">{{ $comment->created_at->diffForHumans()}}</dd>
         </div>
         @endforeach
       </dl>

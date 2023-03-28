@@ -2,29 +2,25 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Comments;
 use Carbon\Carbon;
 use Livewire\Component;
 
 class Comment extends Component
 {
-    public $comments = [
-        [
-            'body' => 'Weekly articles',
-            'created_at' => '3 min ago',
-            'created_by' => 'Admin'
-        ],
-        [
-            'body' => 'Scam articles',
-            'created_at' => '1 day ago',
-            'created_by' => 'User'
-        ]
-    ];
+    public $comments;
 
     public $newComment;
 
     public function render()
     {
         return view('livewire.comment');
+    }
+
+    //mount() is used to initialize variable
+    public function mount(){
+        $initialComments = Comments::get();
+        $this->comments = $initialComments;
     }
 
     public function addComment(){
