@@ -35,7 +35,7 @@
           <button wire:click="$emit('removeComment',{{$comment->id}})" class="rounded-md bg-indigo-500 text-red-200 hover:text-red-600 cursor-pointer">Remove</button>
         </div>
         @endforeach
-        {{ $all_comments->links()}}
+        {{ $all_comments->links('pagination')}}
       </dl>
     </div>
   </div>

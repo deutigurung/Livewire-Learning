@@ -39,6 +39,9 @@ class Comment extends Component
         ]);
     }
 
+    public function paginationView(){
+        return 'pagination';
+    }
     public function addComment(){
         $validateData = $this->validate([
             'newComment' => 'required|string',
