@@ -27,7 +27,7 @@
         
       </div>
       <dl class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
-        @foreach($comments as $comment)
+        @foreach($all_comments as $comment)
         <div class="flex flex-col items-start">
           <dt class="mt-4 font-semibold text-white">{{ $comment->user->name}}</dt>
           <dd class="mt-2 leading-7 text-gray-400">{{ $comment->body}}</dd>
@@ -35,6 +35,7 @@
           <button wire:click="$emit('removeComment',{{$comment->id}})" class="rounded-md bg-indigo-500 text-red-200 hover:text-red-600 cursor-pointer">Remove</button>
         </div>
         @endforeach
+        {{ $all_comments->links()}}
       </dl>
     </div>
   </div>

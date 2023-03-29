@@ -5,9 +5,11 @@ namespace App\Http\Livewire;
 use App\Models\Comments;
 use Carbon\Carbon;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Comment extends Component
 {
+    use WithPagination;
     public $comments;
     public $newComment;
 
@@ -19,13 +21,14 @@ class Comment extends Component
 
     public function render()
     {
-        return view('livewire.comment');
+        $all_comments = Comments::latest()->paginate(5);
+        return view('livewire.comment',compact('all_comments'));
     }
 
     //mount() is used to initialize variable
     public function mount(){
-        $initialComments = Comments::latest()->take(5)->get();
-        $this->comments = $initialComments;
+        // $initialComments = Comments::latest()->take(5)->get();
+        // $this->comments = $initialComments;
     }
 
     // validateOnly is used for real time validation on current input field
@@ -44,15 +47,15 @@ class Comment extends Component
             'body' => $this->newComment,
             'user_id' => 1
         ]);
-        $this->comments->push($data); // add new comment to collection
+        // $this->comments->push($data); // add new comment to collection
         //reset newComment variable
         $this->newComment = '';
         session()->flash('message','Comment added');
     }
 
     public function delete($id){
-        $this->comments = $this->comments->except($id);
-        $data = Comments::find($id)->delete();
+        // $this->comments = $this->comments->except($id);
+        Comments::find($id)->delete();
         session()->flash('message','Comment deleted');
     }
 }
