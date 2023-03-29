@@ -54,18 +54,25 @@
                   <div class="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
                      <table>
                         <thead>
+                           <th>Image</th>
                            <th>Title</th>
                            <th>Description</th>
-                           <th>Image</th>
                            <th>Status</th>
                         </thead>
                         <tbody>
+                           @foreach($all_posts as $post)
                            <tr>
-                              <td>title </td>
-                              <td>title description</td>
-                              <td>title image</td>
-                              <td>title status</td>
+                              <td>
+                                 @if($post->image != null)
+                                 <img src="{{ asset('storage/posts/'.$post->image)}}" height="50" width="50"/> 
+                                 @endif
+                              </td>
+                              <td>{{ $post->title}}</td>
+                              <td>{{ $post->description}}</td>
+                              <td> {{ $post->status == 1 ? 'Active' : 'Inactive'}} </td>
                            </tr>
+                           @endforeach
+                           {{ $all_posts->links('pagination')}}
                         </tbody>
                      </table>
                   </div>   
