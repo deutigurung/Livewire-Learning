@@ -8,6 +8,12 @@
             <div class="text-white">{{ session('message')}}</div>
         @endif
         
+        <section>
+          @if($image)
+          <img src="{{ $image }}" width="200" alt="">
+          @endif
+          <input id="image" name="image" type="file" autocomplete="image" wire:change="$emit('fileChoosen')">
+        </section>
         @error('newComment') <span class="text-white">{{ $message}}</span>@enderror
 
         <form class="my-4 flex" wire:submit.prevent="addComment"> 
@@ -29,6 +35,9 @@
       <dl class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
         @foreach($all_comments as $comment)
         <div class="flex flex-col items-start">
+          @if($comment->image)
+            <img src="{{ $comment->imagePath }}" width="200" alt="image">
+          @endif
           <dt class="mt-4 font-semibold text-white">{{ $comment->user->name}}</dt>
           <dd class="mt-2 leading-7 text-gray-400">{{ $comment->body}}</dd>
           <dd class="mt-2 leading-7 text-gray-400">{{ $comment->created_at->diffForHumans()}}</dd>
@@ -49,3 +58,18 @@
     </defs>
   </svg>
 </div>
+<script>
+  Livewire.on('fileChoosen',() => {
+    let file = document.getElementById('image').files[0];
+    // console.log(file);
+    //Filereader read the file and convert it to base64 string
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      Livewire.emit('fileUpload',reader.result);
+      // console.log(reader.result);
+    }
+    //readAsDataURL is used to read the contents of specified file when read operation is finished
+    reader.readAsDataURL(file);
+  })
+
+</script>

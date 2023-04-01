@@ -31,8 +31,12 @@ class Posts extends Component
 
     public function render()
     {
-        $all_posts = Post::active()->latest()->paginate(1);
+        $all_posts = Post::active()->latest()->paginate(2);
         return view('livewire.posts',compact('all_posts'));
+    }
+
+    public function paginationView(){
+        return 'pagination';
     }
 
     public function storePost(){

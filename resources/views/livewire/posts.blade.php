@@ -2,7 +2,6 @@
     <div class="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
       <div class="sm:max-w-lg">
          <p>Add New Post</p>
-
          <form class="mt-8 space-y-6" wire:submit.prevent="storePost">
             <div class="-space-y-px rounded-md shadow-sm">
 
@@ -52,33 +51,33 @@
             <div class="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
             <div class="flex items-center space-x-6 lg:space-x-8">
                   <div class="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
-                     <table>
+                     <table class="table-auto">
                         <thead>
-                           <th>Image</th>
-                           <th>Title</th>
-                           <th>Description</th>
-                           <th>Status</th>
+                           <th class="px-4 py-2">Image</th>
+                           <th class="px-4 py-2">Title</th>
+                           <th class="px-4 py-2">Description</th>
+                           <th class="px-4 py-2">Status</th>
                         </thead>
                         <tbody>
                            @foreach($all_posts as $post)
                            <tr>
-                              <td>
+                              <td class="border px-4 py-2">
                                  @if($post->image != null)
                                  <img src="{{ asset('storage/posts/'.$post->image)}}" height="50" width="50"/> 
                                  @endif
                               </td>
-                              <td>{{ $post->title}}</td>
-                              <td>{{ $post->description}}</td>
-                              <td> {{ $post->status == 1 ? 'Active' : 'Inactive'}} </td>
+                              <td class="border px-4 py-2">{{ $post->title}}</td>
+                              <td class="border px-4 py-2">{{ $post->description}}</td>
+                              <td class="border px-4 py-2"> {{ $post->status == 1 ? 'Active' : 'Inactive'}} </td>
                            </tr>
                            @endforeach
-                           {{ $all_posts->links('pagination')}}
                         </tbody>
                      </table>
+                     {{ $all_posts->links('pagination')}}
                   </div>   
                </div>   
             </div>   
-         </div>   
+         </div> 
       </div>
- 
+   </div>
 </div>

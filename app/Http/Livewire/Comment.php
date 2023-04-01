@@ -6,18 +6,23 @@ use App\Models\Comments;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
-
+use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic;
+use Illuminate\Support\Facades\Storage;
 class Comment extends Component
 {
     use WithPagination;
-    public $comments;
+    public $comments,$image;
     public $newComment;
 
     protected $rules = [
         'newComment' => 'required|string',
     ];
 
-    protected $listeners = ['removeComment'=>'delete'];
+    protected $listeners = [
+        'removeComment'=>'delete',
+        'fileUpload'=>'handleFileUpload'
+    ];
 
     public function render()
     {
@@ -42,23 +47,47 @@ class Comment extends Component
     public function paginationView(){
         return 'pagination';
     }
+
     public function addComment(){
         $validateData = $this->validate([
             'newComment' => 'required|string',
         ]);
+        $image = $this->storeImage();
         $data = Comments::create([
             'body' => $this->newComment,
+            'image' => $image,
             'user_id' => 1
         ]);
         // $this->comments->push($data); // add new comment to collection
         //reset newComment variable
         $this->newComment = '';
+        $this->image = '';
         session()->flash('message','Comment added');
     }
 
     public function delete($id){
         // $this->comments = $this->comments->except($id);
-        Comments::find($id)->delete();
+        $comment = Comments::find($id);
+        if($comment->image) {
+            Storage::disk('public')->delete('comments/'.$comment->image);
+        }
+        $comment->delete();
         session()->flash('message','Comment deleted');
+    }
+
+    public function handleFileUpload($imageData){
+        $this->image = $imageData;
+    }
+
+    public function storeImage(){
+        if(!$this->image){
+            return null;
+        }
+        // 75 is image quality 
+        $img = ImageManagerStatic::make($this->image)->encode('jpg',75);
+        $name = Str::random(10);
+        $file_name = $name.'.jpg';
+        Storage::disk('public')->put('comments/'.$file_name,$img);
+        return $file_name;
     }
 }

@@ -8,6 +8,7 @@
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         @livewireStyles
+         @livewireScripts
         @vite(['resources/js/app.js'])
         <!-- Styles -->
         <style>
@@ -104,6 +105,6 @@
     </div>
   </main>
 </div>
-        @livewireScripts
+       
     </body>
 </html>
