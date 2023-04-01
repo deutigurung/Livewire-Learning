@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class Comment extends Component
 {
     use WithPagination;
-    public $comments,$image;
+    public $comments,$image,$ticketId = 1;
     public $newComment;
 
     protected $rules = [
@@ -21,12 +21,13 @@ class Comment extends Component
 
     protected $listeners = [
         'removeComment'=>'delete',
-        'fileUpload'=>'handleFileUpload'
+        'fileUpload'=>'handleFileUpload',
+        'ticketSelected',
     ];
 
     public function render()
     {
-        $all_comments = Comments::latest()->paginate(5);
+        $all_comments = Comments::where('support_ticket_id',$this->ticketId)->latest()->paginate(2);
         return view('livewire.comment',compact('all_comments'));
     }
 
@@ -56,7 +57,8 @@ class Comment extends Component
         $data = Comments::create([
             'body' => $this->newComment,
             'image' => $image,
-            'user_id' => 1
+            'user_id' => 1,
+            'support_ticket_id' => $this->ticketId,
         ]);
         // $this->comments->push($data); // add new comment to collection
         //reset newComment variable
@@ -89,5 +91,9 @@ class Comment extends Component
         $file_name = $name.'.jpg';
         Storage::disk('public')->put('comments/'.$file_name,$img);
         return $file_name;
+    }
+
+    public function ticketSelected($ticketId){
+        $this->ticketId = $ticketId;
     }
 }

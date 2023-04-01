@@ -12,7 +12,7 @@ class Comments extends Model
     use HasFactory;
 
     protected $table = "comments";
-    protected $fillable = ['body','user_id','image'];
+    protected $fillable = ['body','user_id','image','support_ticket_id'];
 
     public function user(){
         return $this->belongsTo(User::class);
