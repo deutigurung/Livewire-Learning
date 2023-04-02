@@ -8,11 +8,13 @@
       <div class="-space-y-px rounded-md shadow-sm">
         <div>
           <label for="email-address" class="sr-only">Email address</label>
+          @error('form.email') <span class="text-red-500">{{ $message}}</span> @enderror
           <input id="email-address" name="email" type="email" autocomplete="email" wire:model="form.email"
            class="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Email address">
         </div>
         <div>
           <label for="password" class="sr-only">Password</label>
+          @error('form.password') <span class="text-red-500">{{ $message}}</span> @enderror
           <input id="password" name="password" type="password" autocomplete="current-password" wire:model="form.password"
            class="relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Password">
         </div>

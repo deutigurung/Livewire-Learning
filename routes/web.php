@@ -15,14 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',function(){
     return view('layouts.app');
-});
-
-Route::get('/home', function () {
-    return view('welcome');
-})->name('home');
+})->name('login');
 
 Route::get('/login',[\App\Http\Livewire\Login::class,'render']);
 Route::get('/register',[\App\Http\Livewire\Register::class,'render']);
+
+Route::middleware('auth')->group(function(){
+    Route::get('/home', function () {
+        return view('welcome');
+    })->name('home');
+});
 
 Route::get('/posts',function(){
     return view('post-index');
