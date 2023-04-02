@@ -7,7 +7,6 @@
     <title>Learning Livewire</title>
     @livewireStyles
     @vite(['resources/js/app.js'])
-    @livewireScripts
 </head>
 <body>
 <div class="min-h-full">
@@ -21,10 +20,16 @@
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-              <a href="/welcome" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Dashboard</a>
-              <a href="/login" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Login</a>
-              <a href="/" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Register</a>
-          </div>
+              <a href="#" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Dashboard</a>
+
+              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Team</a>
+
+              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Projects</a>
+
+              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Calendar</a>
+
+              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Reports</a>
+            </div>
           </div>
         </div>
         <div class="hidden md:block">
@@ -45,6 +50,11 @@
                 </button>
               </div>
 
+              
+              <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                <!-- Active: "bg-gray-100", Not Active: "" -->
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+              </div>
             </div>
           </div>
         </div>
@@ -87,6 +97,7 @@
             </svg>
           </button>
         </div>
+        
       </div>
     </div>
   </nav>
@@ -94,12 +105,18 @@
   <main>
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
       <div class="container mx-auto">
-        @yield('content')
-        <livewire:register/>
-      </div>
+        <div class="w-full flex">
+            <div class="w-1/2 rounded border p-2">
+                <livewire:login/>
+            </div>
+            <div class="w-1/2 rounded border p-2">
+                <livewire:register/>
+            </div>
+        </div>
+    </div>
     </div>
   </main>
 </div>
- 
+ @livewireScripts
 </body>
 </html>
